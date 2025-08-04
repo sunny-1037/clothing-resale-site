@@ -1,0 +1,34 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the site in the jekyll/builder container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+{
+    id: 1,
+    title: "Your Item Name",
+    category: "dresses", // tops, bottoms, dresses, outerwear, shoes, accessories
+    size: "M",
+    gender: "women", // women, men, unisex  
+    price: 35.00,
+    originalPrice: 85.00,
+    brand: "Brand Name",
+    condition: "Excellent", // New, Like New, Excellent, Very Good, Good
+    description: "Item description",
+    image: "filename.jpg",
+    tags: ["keyword1", "keyword2"]
+}
